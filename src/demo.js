@@ -248,6 +248,15 @@ export default function BasicTable() {
       }
     });
     
+    //
+    var addRowAboveButton = document.createElement("Button");
+    var addRowAboveButtonText = document.createTextNode("Move Down");
+    addRowAboveButton.appendChild(addRowAboveButtonText);
+    addRowAboveButton.addEventListener("click", function (e) {
+      addRow(childDefine(), this.parentNode.parentNode.rowIndex);
+    });
+
+
     //Adds Buttons to the cell
     cell7.appendChild(deleteButton);
     cell7.appendChild(moveUpButton);
@@ -388,6 +397,4 @@ export default function BasicTable() {
       }
     });
 
-
-    Works
 */
