@@ -31,6 +31,7 @@ export default function BasicTable() {
 
     <div>
       <h2>Quote Table Creator</h2>
+      
       <div>
         <table>
           <tr>
@@ -53,6 +54,7 @@ export default function BasicTable() {
           <td>Operation</td>
           <td>Setup</td>
           <td>Run</td>
+          <td>Risk</td>
 
           <td>Options</td>
 
@@ -122,7 +124,20 @@ export default function BasicTable() {
             id="runId"
             label="Run"
           />
+        
+        <Select
+          labelId="riskSelect"
+          id="riskId"
+          label="Risk Select"
+          onChange={handleChange}
+          defaultValue={1}
 
+        >
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+
+        </Select>
         <p/>
         <InputLabel id="childSelect">Child Row</InputLabel>
         <Select
@@ -139,6 +154,8 @@ export default function BasicTable() {
 
         </Select>
 
+        
+
       </div>
 
       <Button variant="contained" onClick={() => addRow(0)}>Add Row</Button>
@@ -151,6 +168,7 @@ export default function BasicTable() {
   function addRow(child, rowNum) {
     var table = document.getElementById("myTable");
 
+    //Inserts rows to a specific spot if defined
     if (rowNum != undefined) {
       var row = table.insertRow(rowNum);
     }
@@ -158,6 +176,7 @@ export default function BasicTable() {
       var row = table.insertRow(-1);
     }
 
+    //Adds cells to the row
     var partNumCell = row.insertCell(0);
     var drawingCell = row.insertCell(1);
     var revCell = row.insertCell(2);
@@ -166,16 +185,11 @@ export default function BasicTable() {
     var operationCell = row.insertCell(5);
     var setupCell = row.insertCell(6);
     var runCell = row.insertCell(7);
-    var cell7 = row.insertCell(8);
-    var cell8 = row.insertCell(9);
-    var cell9 = row.insertCell(10);
-    var cell10 = row.insertCell(11);
-    var cell11 = row.insertCell(12);
-    
+    var riskCell = row.insertCell(8);
+    var optionCell = row.insertCell(9);
     
 
-  
-
+    //Makes cell content editable
     partNumCell.contentEditable = "true";
     drawingCell.contentEditable = "true";
     revCell.contentEditable = "true";
@@ -184,10 +198,9 @@ export default function BasicTable() {
     operationCell.contentEditable = "true";
     setupCell.contentEditable = "true";
     runCell.contentEditable = "true";
+    riskCell.contentEditable = "true";
 
-    const input = document.getElementById('myTable');
-
-    
+   
     partNumCell.innerHTML = document.getElementById("partNumId").value;
 
     //Determines child/parent row
@@ -208,7 +221,7 @@ export default function BasicTable() {
     operationCell.innerHTML = (document.getElementById("operationId").textContent);
     runCell.innerHTML = document.getElementById("runId").value;
     setupCell.innerHTML = document.getElementById("setupId").value;
-
+    riskCell.innerHTML = (document.getElementById("riskId").textContent);
 
     //Creates delete button
     var deleteButton = document.createElement("Button");
@@ -266,11 +279,11 @@ export default function BasicTable() {
 
 
     //Adds Buttons to the cell
-    cell7.appendChild(deleteButton);
-    cell7.appendChild(moveUpButton);
-    cell7.appendChild(moveDownButton);
-    cell7.appendChild(addRowAboveButton);
-    cell7.appendChild(addRowBelowButton);
+    optionCell.appendChild(deleteButton);
+    optionCell.appendChild(moveUpButton);
+    optionCell.appendChild(moveDownButton);
+    optionCell.appendChild(addRowAboveButton);
+    optionCell.appendChild(addRowBelowButton);
 
 
     //Determines whether a new row is a child or parent
@@ -292,6 +305,8 @@ export default function BasicTable() {
 
 
 
+//Drop down for options on left side of table
+//Risk assessment for operation and Full quote
 
 
 //tr:nth-child(even) {
