@@ -375,7 +375,7 @@ export default function BasicTable() {
       }
     });
 
-    cell9.innerHTML = '<td><button>&ShortDownArrow;</button></td>'
+    cell9.innerHTML = '<td><button>&ShortDownArrow;</button></td>'p
     cell9.addEventListener("click", function (e) {
       var index = this.parentNode.rowIndex
       var rows = document.getElementById("myTable").rows,
@@ -387,4 +387,7 @@ export default function BasicTable() {
         index++;
       }
     });
+
+
+    Works
 */
