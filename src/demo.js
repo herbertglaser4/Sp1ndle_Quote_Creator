@@ -248,12 +248,20 @@ export default function BasicTable() {
       }
     });
     
-    //
+    //Creates add row above button
     var addRowAboveButton = document.createElement("Button");
-    var addRowAboveButtonText = document.createTextNode("Move Down");
+    var addRowAboveButtonText = document.createTextNode("Add Row Above");
     addRowAboveButton.appendChild(addRowAboveButtonText);
     addRowAboveButton.addEventListener("click", function (e) {
       addRow(childDefine(), this.parentNode.parentNode.rowIndex);
+    });
+
+    //Creates add row below button
+    var addRowBelowButton = document.createElement("Button");
+    var addRowBelowButtonText = document.createTextNode("Add Row Below");
+    addRowBelowButton.appendChild(addRowBelowButtonText);
+    addRowBelowButton.addEventListener("click", function (e) {
+      addRow(childDefine(), this.parentNode.parentNode.rowIndex + 1);
     });
 
 
@@ -261,34 +269,11 @@ export default function BasicTable() {
     cell7.appendChild(deleteButton);
     cell7.appendChild(moveUpButton);
     cell7.appendChild(moveDownButton);
+    cell7.appendChild(addRowAboveButton);
+    cell7.appendChild(addRowBelowButton);
 
 
-    
-
-
-   
-
-    
-
-    cell10.innerHTML = '<td><button>&ShortUpArrow; Add Row Above</button></td>'
-    cell10.addEventListener("click", function (e) {
-      addRow(childDefine(), this.parentNode.rowIndex);
-    });
-
-    cell11.innerHTML = '<td><button>&ShortDownArrow; Add Row Below</button></td>'
-    cell11.addEventListener("click", function (e) {
-      addRow(childDefine(), this.parentNode.rowIndex + 1);
-    });
-
-
-
-
-
-
-
-
-
-
+    //Determines whether a new row is a child or parent
     function childDefine() {
       if (document.getElementById("7").textContent == "Parent") {
         return 0;
@@ -308,8 +293,6 @@ export default function BasicTable() {
 
 
 
-//Add rest of items in table
-//Insert Row above or below
 
 //tr:nth-child(even) {
 //  background-color: #dddddd;
@@ -395,6 +378,15 @@ export default function BasicTable() {
         // when the row go down the index will be equal to index + 1
         index++;
       }
+    });
+ cell10.innerHTML = '<td><button>&ShortUpArrow; Add Row Above</button></td>'
+    cell10.addEventListener("click", function (e) {
+      addRow(childDefine(), this.parentNode.rowIndex);
+    });
+
+    cell11.innerHTML = '<td><button>&ShortDownArrow; Add Row Below</button></td>'
+    cell11.addEventListener("click", function (e) {
+      addRow(childDefine(), this.parentNode.rowIndex + 1);
     });
 
 */
