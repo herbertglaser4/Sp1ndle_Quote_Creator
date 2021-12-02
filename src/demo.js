@@ -15,6 +15,7 @@ import './App.css';
 import { InputLabel } from '@mui/material';
 import { Select } from '@mui/material';
 import { MenuItem } from '@mui/material';
+import { DropdownButton } from 'react-bootstrap';
 
 import { Table, ToastBody } from "react-bootstrap";
 // To make rows collapsible
@@ -68,6 +69,7 @@ export default function BasicTable() {
 
 
       <div id="form">
+        
         <div> Part Details</div>
           <TextField
             id="partNumId"
