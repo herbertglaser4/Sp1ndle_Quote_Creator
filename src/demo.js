@@ -32,7 +32,7 @@ export default function BasicTable() {
 
     <div>
       <h2>Quote Table Creator</h2>
-      
+
       <div>
         <table>
           <tr>
@@ -46,6 +46,7 @@ export default function BasicTable() {
       <table id="myTable">
 
         <tr>
+          <td>Options</td>
           <td>Part Number</td>
           <td>Drawing</td>
           <td>Rev</td>
@@ -56,10 +57,6 @@ export default function BasicTable() {
           <td>Setup</td>
           <td>Run</td>
           <td>Risk</td>
-
-          <td>Options</td>
-
-
         </tr>
 
       </table>
@@ -69,35 +66,37 @@ export default function BasicTable() {
 
 
       <div id="form">
-        
+
         <div> Part Details</div>
-          <TextField
-            id="partNumId"
-            label="Part Number"
-          />
-          <TextField
-            id="drawingId"
-            label="Drawing"
-          />
-          <TextField
-            id="revId"
-            label="Rev"
-          />
-          <TextField
-            id="itemDescId"
-            label="Item Description"
-          />
-          <TextField
-            id="qtyId"
-            label="Qty"
-          />
-        
+        <p/>
+        <TextField
+          id="partNumId"
+          label="Part Number"
+        />
+        <TextField
+          id="drawingId"
+          label="Drawing"
+        />
+        <TextField
+          id="revId"
+          label="Rev"
+        />
+        <TextField
+          id="itemDescId"
+          label="Item Description"
+        />
+        <TextField
+          id="qtyId"
+          label="Qty"
+        />
 
 
 
-<p/>
 
-       
+        <p />
+        <div>Operation Details</div>
+        <br/>
+
         <InputLabel id="operationSelect"></InputLabel>
         <Select
           labelId="operationSelect"
@@ -118,15 +117,15 @@ export default function BasicTable() {
         </Select>
 
         <TextField
-            id="setupId"
-            label="Setup"
-          />
+          id="setupId"
+          label="Setup"
+        />
 
         <TextField
-            id="runId"
-            label="Run"
-          />
-        
+          id="runId"
+          label="Run"
+        />
+
         <Select
           labelId="riskSelect"
           id="riskId"
@@ -140,7 +139,7 @@ export default function BasicTable() {
           <MenuItem value={3}>3</MenuItem>
 
         </Select>
-        <p/>
+        <p />
         <InputLabel id="childSelect">Child Row</InputLabel>
         <Select
           labelId="childSelect"
@@ -156,7 +155,7 @@ export default function BasicTable() {
 
         </Select>
 
-        
+
 
       </div>
 
@@ -179,16 +178,16 @@ export default function BasicTable() {
     }
 
     //Adds cells to the row
-    var partNumCell = row.insertCell(0);
-    var drawingCell = row.insertCell(1);
-    var revCell = row.insertCell(2);
-    var itemDescCell = row.insertCell(3);
-    var qtyCell = row.insertCell(4);
-    var operationCell = row.insertCell(5);
-    var setupCell = row.insertCell(6);
-    var runCell = row.insertCell(7);
-    var riskCell = row.insertCell(8);
-    var optionCell = row.insertCell(9);
+    var optonCell = row.insertCell(0);
+    var partNumCell = row.insertCell(1);
+    var drawingCell = row.insertCell(2);
+    var revCell = row.insertCell(3);
+    var itemDescCell = row.insertCell(4);
+    var qtyCell = row.insertCell(5);
+    var operationCell = row.insertCell(6);
+    var setupCell = row.insertCell(7);
+    var runCell = row.insertCell(8);
+    var riskCell = row.insertCell(9);
     
 
     //Makes cell content editable
@@ -202,7 +201,7 @@ export default function BasicTable() {
     runCell.contentEditable = "true";
     riskCell.contentEditable = "true";
 
-   
+
     partNumCell.innerHTML = document.getElementById("partNumId").value;
 
     //Determines child/parent row
@@ -225,20 +224,44 @@ export default function BasicTable() {
     setupCell.innerHTML = document.getElementById("setupId").value;
     riskCell.innerHTML = (document.getElementById("riskId").textContent);
 
+    //Creates option dropdown
+
+
+
+
+
+    var optionDiv = document.createElement("div");
+    optionDiv.className = "dropdown";
+
+
+
+    var optionButton = document.createElement("Button");
+    optionButton.className = "dropbtn";
+    optionButton.textContent = "Options";
+    optionDiv.appendChild(optionButton);
+
+    var optionDropdownContentDiv = document.createElement("div");
+    optionDropdownContentDiv.className = "dropdown-content";
+    optionDiv.appendChild(optionDropdownContentDiv);
+
+
+
     //Creates delete button
-    var deleteButton = document.createElement("Button");
-    var deleteButtonText = document.createTextNode("Delete");
-    deleteButton.appendChild(deleteButtonText);
+    var deleteButton = document.createElement("a");
+    deleteButton.href = "#";
+    deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function (e) {
-      document.getElementById("myTable").deleteRow(this.parentNode.parentNode.rowIndex);
-    }); 
+      document.getElementById("myTable").deleteRow(this.parentNode.parentNode.parentNode.parentNode.rowIndex);
+      console.log(" THIS = " + JSON.stringify(this.parentNode.parentNode.parentNode.parentNode.rowIndex))
+    });
+    optionDropdownContentDiv.appendChild(deleteButton)
 
     //Creates move up button
-    var moveUpButton = document.createElement("Button");
-    var moveUpButtonText = document.createTextNode("Move Up");
-    moveUpButton.appendChild(moveUpButtonText);
+    var moveUpButton = document.createElement("a");
+    moveUpButton.href = "#";
+    moveUpButton.textContent = "Move Row Up"
     moveUpButton.addEventListener("click", function (e) {
-      var index = this.parentNode.parentNode.rowIndex
+      var index = this.parentNode.parentNode.parentNode.parentNode.rowIndex
       var rows = document.getElementById("myTable").rows,
         parent = rows[index].parentNode;
 
@@ -247,13 +270,14 @@ export default function BasicTable() {
         index--;
       }
     });
+    optionDropdownContentDiv.appendChild(moveUpButton);
 
     //Creates move down button
-    var moveDownButton = document.createElement("Button");
-    var moveDownButtonText = document.createTextNode("Move Down");
-    moveDownButton.appendChild(moveDownButtonText);
+    var moveDownButton = document.createElement("a");
+    moveDownButton.href = "#";
+    moveDownButton.textContent = "Move Row Down"
     moveDownButton.addEventListener("click", function (e) {
-      var index = this.parentNode.parentNode.rowIndex
+      var index = this.parentNode.parentNode.parentNode.parentNode.rowIndex
       var rows = document.getElementById("myTable").rows,
         parent = rows[index].parentNode;
 
@@ -262,30 +286,28 @@ export default function BasicTable() {
         index++;
       }
     });
-    
+    optionDropdownContentDiv.appendChild(moveDownButton);
+
     //Creates add row above button
-    var addRowAboveButton = document.createElement("Button");
-    var addRowAboveButtonText = document.createTextNode("Add Row Above");
-    addRowAboveButton.appendChild(addRowAboveButtonText);
+    var addRowAboveButton = document.createElement("a");
+    addRowAboveButton.href = "#";
+    addRowAboveButton.textContent = "Add Row Above"
     addRowAboveButton.addEventListener("click", function (e) {
-      addRow(childDefine(), this.parentNode.parentNode.rowIndex);
+      addRow(childDefine(), this.parentNode.parentNode.parentNode.parentNode.rowIndex);
     });
+    optionDropdownContentDiv.appendChild(addRowAboveButton);
 
     //Creates add row below button
-    var addRowBelowButton = document.createElement("Button");
-    var addRowBelowButtonText = document.createTextNode("Add Row Below");
-    addRowBelowButton.appendChild(addRowBelowButtonText);
+    var addRowBelowButton = document.createElement("a");
+    addRowBelowButton.href = "#";
+    addRowBelowButton.textContent = "Add Row Below"
     addRowBelowButton.addEventListener("click", function (e) {
-      addRow(childDefine(), this.parentNode.parentNode.rowIndex + 1);
+      addRow(childDefine(), this.parentNode.parentNode.parentNode.parentNode.rowIndex + 1);
     });
+    optionDropdownContentDiv.appendChild(addRowBelowButton);
 
+    optonCell.appendChild(optionDiv)
 
-    //Adds Buttons to the cell
-    optionCell.appendChild(deleteButton);
-    optionCell.appendChild(moveUpButton);
-    optionCell.appendChild(moveDownButton);
-    optionCell.appendChild(addRowAboveButton);
-    optionCell.appendChild(addRowBelowButton);
 
 
     //Determines whether a new row is a child or parent
@@ -405,5 +427,14 @@ export default function BasicTable() {
     cell11.addEventListener("click", function (e) {
       addRow(childDefine(), this.parentNode.rowIndex + 1);
     });
+
+
+<DropdownButton id="dropdown-basic-button" title="Dropdown button">
+  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+  <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+</DropdownButton>
+
+
 
 */
