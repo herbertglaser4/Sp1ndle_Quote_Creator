@@ -32,7 +32,13 @@ export default function BasicTable() {
 
     <div>
       <h2>Quote Table Creator</h2>
-
+      <div class = "headerRisk">
+      <TextField
+          id="riskId"
+          label="Risk Level"
+          
+        /> 
+        </div>
       <div>
         <table>
           <tr>
@@ -225,15 +231,8 @@ export default function BasicTable() {
     riskCell.innerHTML = (document.getElementById("riskId").textContent);
 
     //Creates option dropdown
-
-
-
-
-
     var optionDiv = document.createElement("div");
     optionDiv.className = "dropdown";
-
-
 
     var optionButton = document.createElement("Button");
     optionButton.className = "dropbtn";
